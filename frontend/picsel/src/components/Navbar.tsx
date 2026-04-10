@@ -6,15 +6,17 @@ const menuItems = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Events", path: "/events" },
+  { name: "Gallery", path: "/gallery" },
   { name: "Team", path: "/team" },
   { name: "Faculty", path: "/faculty" },
   { name: "Contact", path: "/contact" },
+  
 ];
 
 const socialLinks = [
   { icon: Instagram, url: "https://instagram.com/picsel_kdkce", label: "Instagram" },
   { icon: Linkedin, url: "https://linkedin.com/company/picsel-kdkce", label: "LinkedIn" },
-  { icon: Twitter, url: "https://twitter.com/picsel_kdkce", label: "X" },
+  
   { icon: Facebook, url: "https://facebook.com/picselkdkce", label: "Facebook" },
 ];
 

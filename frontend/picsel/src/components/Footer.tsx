@@ -64,10 +64,9 @@ const Footer = () => {
             <div className="flex flex-wrap gap-2 sm:gap-3">
               {[
                 { name: "Instagram", icon: Instagram, url: "https://instagram.com/picsel_kdkce" },
-                { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/company/picsel-kdkce" },
-                { name: "Twitter/X", icon: Twitter, url: "https://twitter.com/picsel_kdkce" },
+                
                 { name: "Facebook", icon: Facebook, url: "https://facebook.com/picsel.kdkce" },
-                { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/919876543210" },
+                
               ].map((social) => (
                 <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer"
                   className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg sm:rounded-xl border border-border text-muted-foreground transition-all hover:border-primary hover:text-primary hover:shadow-glow"
@@ -77,13 +76,13 @@ const Footer = () => {
               ))}
             </div>
             <a href="mailto:picsel@kdkce.edu" className="mt-3 sm:mt-4 flex items-center gap-2 text-[10px] sm:text-xs text-muted-foreground hover:text-primary transition-colors">
-              <Mail size={12} /> picsel@kdkce.edu
+              {/* <Mail size={12} /> picsel@kdkce.edu */}
             </a>
           </div>
         </div>
 
         <div className="mt-8 sm:mt-12 border-t border-border pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-between text-[10px] sm:text-xs text-muted-foreground gap-2">
-          <span>© {new Date().getFullYear()} PICSEL Club — KDKCE. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} PICSEL Committee — KDKCE. All rights reserved.</span>
           <div className="flex items-center gap-3">
             <span className="text-muted-foreground/50">Crafted with ❤️ by PICSEL Dev Team</span>
             <Link to="/admin" className="opacity-20 transition-opacity hover:opacity-80 text-[9px] uppercase tracking-[0.28em] text-muted-foreground hover:text-primary">

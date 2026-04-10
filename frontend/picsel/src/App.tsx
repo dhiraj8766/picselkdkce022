@@ -22,6 +22,7 @@ import ContactPage from "./pages/ContactPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminLogin from "./pages/AdminLogin";
 import RegisterPage from "./pages/RegisterPage";
+import GalleryPage from "./pages/GalleryPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +59,7 @@ const App = () => {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
