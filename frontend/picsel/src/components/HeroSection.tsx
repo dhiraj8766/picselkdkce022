@@ -9,6 +9,8 @@ import hero5 from "@/assets/heroimg/hero4.jpeg";
 import hero3 from "@/assets/heroimg/hero5.jpeg";
 import hero6 from "@/assets/heroimg/hero6.png";
 import { API } from "@/config/api";
+import Typewriter from "@/components/ui/typewriter";
+
 
 const heroImages = [
   { src: hero1, label: "Faculty" },
@@ -33,6 +35,10 @@ const HeroSection = () => {
   const [events, setEvents] = useState<EventData[]>([]);
   const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
+
+  const [line1Done, setLine1Done] = useState(false);
+  const [line2Done, setLine2Done] = useState(false);
+
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -93,20 +99,48 @@ const HeroSection = () => {
         <img src={picselLogo} alt="PICSEL" className="h-9 w-9 rounded-full border border-border/30 shadow-lg" />
         <div className="leading-none">
           <span className="block text-sm font-extrabold tracking-tight text-foreground font-heading">PICSEL</span>
-          <span className="block text-[8px] font-medium uppercase tracking-[2px] text-muted-foreground">KDKCE</span>
+          <span className="block text-[8px] font-mono font-medium uppercase tracking-[2px] text-muted-foreground">KDKCE</span>
         </div>
       </div>
 
       <div className="relative z-10">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center mb-10 sm:mb-16">
           <div className="animate-[fadeIn_0.8s_ease-out]">
-            <h1 className="font-heading text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-              <span className="text-foreground/70">Learn teamwork</span>{" "}<br className="hidden sm:block" />
-              <span className="text-foreground/70">essentials for</span><br />
-              <span className="bg-gradient-to-r from-primary via-[hsl(var(--accent-cyan))] to-[hsl(var(--accent-purple))] bg-clip-text text-transparent block mt-1">effective collaboration.</span>
-            </h1>
-            <p className="mt-5 sm:mt-8 max-w-md text-sm sm:text-base leading-relaxed text-muted-foreground/90">
-              The modern Picsel dictates its own terms. Today, to be a competitive specialist requires more than professional skills.
+            {/* <h1 className="font-heading text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="text-foreground/70"><Typewriter />Learn.</span>{" "}<br className="hidden sm:block" />
+              <span className="text-foreground/70">Build.</span><br />
+              <span className="bg-gradient-to-r from-primary via-[hsl(var(--accent-cyan))] to-[hsl(var(--accent-purple))] bg-clip-text text-transparent block mt-1">Grow Together.</span>
+            </h1> */}
+
+              <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight space-y-2 tracking-tight">
+
+      <div className="text-cyan-400">
+        <Typewriter
+          words={["Build."]}
+          start={true}
+          onComplete={() => setLine1Done(true)}
+        />
+      </div>
+
+      <div className="text-gray-300">
+        <Typewriter
+          words={["Learn."]}
+          start={line1Done}
+          onComplete={() => setLine2Done(true)}
+        />
+      </div>
+
+      <div className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <Typewriter
+          words={["Grow Together."]}
+          start={line2Done}
+          onComplete={() => {}}
+        />
+      </div>
+
+    </h1>
+            <p className="mt-6 sm:mt-8 max-w-md text-sm sm:text-base leading-relaxed text-muted-foreground/90">
+              PICSEL is a student-led technical community at KDKCE focused on practical learning, innovation, and collaboration through workshops, events, and real-world projects.
             </p>
             <div className="mt-6 sm:mt-8 flex flex-wrap gap-3 sm:gap-4">
               <Link to="/events">
@@ -138,7 +172,7 @@ const HeroSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                     {isActive && !isTransitioning && (
                       <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 animate-[fadeIn_0.5s_ease-out]">
-                        <span className="inline-block rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-primary">{img.label}</span>
+                        <span className="inline-block rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 px-3 py-1 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-primary">{img.label}</span>
                       </div>
                     )}
                   </div>
@@ -190,7 +224,7 @@ const HeroSection = () => {
                     )}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/50 hidden md:block" />
                     <div className="absolute top-3 left-3">
-                      <span className="rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                      <span className="rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-primary">
                         {activeEvent.eventType || "Event"}
                       </span>
                     </div>
@@ -198,7 +232,7 @@ const HeroSection = () => {
                   <div className="p-5 sm:p-6 md:p-8 flex flex-col justify-center">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground font-heading line-clamp-2">{activeEvent.title}</h3>
                     <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{activeEvent.description}</p>
-                    <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                    <div className="mt-4 flex flex-wrap items-center gap-3 text-xs font-mono text-muted-foreground">
                       <span className="flex items-center gap-1.5"><Calendar size={13} /> {activeEvent.date}</span>
                       <span className="flex items-center gap-1.5"><Clock size={13} /> {activeEvent.time}</span>
                       <span className="flex items-center gap-1.5"><MapPin size={13} /> {activeEvent.location}</span>
@@ -265,7 +299,7 @@ const HeroSection = () => {
               </button>
             </div>
             <div className="p-5 sm:p-6">
-              <span className="inline-block rounded-full bg-primary/10 border border-primary/20 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary mb-3">
+              <span className="inline-block rounded-full bg-primary/10 border border-primary/20 px-3 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-primary mb-3">
                 {selectedEvent.eventType || "Event"}
               </span>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground font-heading">{selectedEvent.title}</h2>
