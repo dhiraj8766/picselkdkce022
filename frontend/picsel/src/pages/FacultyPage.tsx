@@ -19,7 +19,14 @@ const FacultyPage = () => {
     const fetchFaculty = async () => {
       try {
         const res = await fetch(API.FACULTY);
-        if (res.ok) setFaculty(await res.json());
+        if (res.ok) {
+  const data = await res.json();
+
+  // sort faculty by id in increasing order
+  const sortedFaculty = data.sort((a: any, b: any) => a.id - b.id);
+
+  setFaculty(sortedFaculty);
+}
       } catch (err) { console.error("Failed to fetch faculty:", err); }
       finally { setLoading(false); }
     };
