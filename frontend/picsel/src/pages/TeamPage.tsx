@@ -26,16 +26,19 @@ const HexCard = ({
   onClick: () => void;
 }) => {
   const sizeClasses = {
-     lg: "w-[130px] h-[150px] sm:w-[180px] sm:h-[207px] md:w-[240px] md:h-[276px]",
-     md: "w-[90px] h-[104px] sm:w-[140px] sm:h-[161px] md:w-[180px] md:h-[207px]",
-     sm: "w-[75px] h-[86px] sm:w-[100px] sm:h-[115px] md:w-[120px] md:h-[138px]",
+    lg: "w-[130px] h-[150px] sm:w-[180px] sm:h-[207px] md:w-[240px] md:h-[276px]",
+    md: "w-[90px] h-[104px] sm:w-[140px] sm:h-[161px] md:w-[180px] md:h-[207px]",
+    sm: "w-[75px] h-[86px] sm:w-[100px] sm:h-[115px] md:w-[120px] md:h-[138px]",
   };
 
   return (
     <div onClick={onClick} className="group cursor-pointer flex flex-col items-center">
       <div
         className={`relative ${sizeClasses[size]} overflow-hidden transition-transform duration-500 group-hover:scale-105`}
-        style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+        style={{
+          clipPath:
+            "polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)",
+        }}
       >
         {member.imageUrl ? (
           <img src={member.imageUrl} alt={member.name} className="w-full h-full object-cover" />
@@ -44,10 +47,17 @@ const HexCard = ({
             {member.name.charAt(0)}
           </div>
         )}
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
-      <h3 className="mt-2 text-xs sm:text-sm font-bold text-foreground text-center font-heading">{member.name}</h3>
-      <p className="text-[10px] sm:text-xs text-primary font-medium text-center">{member.role}</p>
+
+      <h3 className="mt-2 text-xs sm:text-sm font-bold text-foreground text-center font-heading">
+        {member.name}
+      </h3>
+
+      <p className="text-[10px] sm:text-xs text-primary font-medium text-center">
+        {member.role}
+      </p>
     </div>
   );
 };
@@ -68,6 +78,7 @@ const TeamPage = () => {
         setLoading(false);
       }
     };
+
     fetchTeam();
   }, []);
 
@@ -75,54 +86,115 @@ const TeamPage = () => {
   const coreTeam = team.filter((m) => m.tokenNo === 2);
   const members = team.filter((m) => m.tokenNo === 3);
 
-  const leftCore = coreTeam.slice(0, 2);
-  const rightCore = coreTeam.slice(2, 4);
+  const pres = president[0];
+  const firstFourCore = coreTeam.slice(0, 4);
   const remainingCore = coreTeam.slice(4);
 
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-muted-foreground text-sm animate-pulse">Loading team...</div>
+        <div className="text-muted-foreground text-sm animate-pulse">
+          Loading team...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="relative min-h-screen bg-background pb-mobile-nav pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 lg:px-16">
+    <div className="relative min-h-screen bg-background pb-mobile-nav pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 lg:px-16 pb-10">
+
       <AnimatedBackground />
       <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none" />
 
       <div className="relative z-10">
+
+        {/* Heading */}
         <ScrollReveal direction="up" scale>
-          <div className="mb-12 text-center">
-            <span className="text-xs uppercase tracking-widest text-primary font-heading">The Squad</span>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mt-2 font-heading">Our Team</h1>
-            <p className="text-sm text-muted-foreground mt-2">The passionate minds powering PICSEL Club.</p>
+          <div className="mb-8 text-center">
+            <span className="text-xs uppercase tracking-widest text-primary font-heading">
+              The Squad
+            </span>
+
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mt-2 font-heading">
+              Our Team
+            </h1>
+
+            <p className="text-sm text-muted-foreground mt-2">
+              The passionate minds powering PICSEL Club.
+            </p>
           </div>
         </ScrollReveal>
 
-        {/* Top Row: 5 hexagonal photos */}
+        {/* MOBILE LAYOUT */}
+        <div className="md:hidden flex flex-col items-center gap-6 mb-10">
+
+          {pres && (
+            <HexCard
+              member={pres}
+              size="lg"
+              onClick={() => setSelectedProfile(pres)}
+            />
+          )}
+
+          <div className="grid grid-cols-2 gap-6">
+            {firstFourCore.map((m) => (
+              <HexCard
+                key={m.id}
+                member={m}
+                size="md"
+                onClick={() => setSelectedProfile(m)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* DESKTOP LAYOUT */}
         <ScrollReveal>
-          <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 mb-16 flex-wrap">
-            {leftCore.map((m) => (
-              <HexCard key={m.id} member={m} size="md" onClick={() => setSelectedProfile(m)} />
+          <div className="hidden md:flex items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-10 flex-wrap">
+
+            {firstFourCore.slice(0, 2).map((m) => (
+              <HexCard
+                key={m.id}
+                member={m}
+                size="md"
+                onClick={() => setSelectedProfile(m)}
+              />
             ))}
-            {president.map((p) => (
-              <HexCard key={p.id} member={p} size="lg" onClick={() => setSelectedProfile(p)} />
-            ))}
-            {rightCore.map((m) => (
-              <HexCard key={m.id} member={m} size="md" onClick={() => setSelectedProfile(m)} />
+
+            {pres && (
+              <HexCard
+                member={pres}
+                size="lg"
+                onClick={() => setSelectedProfile(pres)}
+              />
+            )}
+
+            {firstFourCore.slice(2, 4).map((m) => (
+              <HexCard
+                key={m.id}
+                member={m}
+                size="md"
+                onClick={() => setSelectedProfile(m)}
+              />
             ))}
           </div>
         </ScrollReveal>
 
-        {/* Remaining Core Team */}
+        {/* Remaining Core */}
         {remainingCore.length > 0 && (
-          <div className="mb-16 max-w-6xl mx-auto">
-            <h3 className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-8 font-heading">Core Team</h3>
-            <div className="flex flex-wrap justify-center gap-6">
+          <div className="mb-10 max-w-6xl mx-auto">
+            <h3 className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-6 font-heading">
+              Core Team
+            </h3>
+
+            <div className="flex flex-wrap justify-center gap-4">
               {remainingCore.map((m) => (
-                <HexCard key={m.id} member={m} size="md" onClick={() => setSelectedProfile(m)} />
+                <HexCard
+                  key={m.id}
+                  member={m}
+                  size="md"
+                  onClick={() => setSelectedProfile(m)}
+                />
               ))}
             </div>
           </div>
@@ -131,10 +203,18 @@ const TeamPage = () => {
         {/* Members */}
         {members.length > 0 && (
           <div className="max-w-6xl mx-auto">
-            <h3 className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-8 font-heading">Members</h3>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+            <h3 className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-6 font-heading">
+              Members
+            </h3>
+
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               {members.map((member) => (
-                <HexCard key={member.id} member={member} size="sm" onClick={() => setSelectedProfile(member)} />
+                <HexCard
+                  key={member.id}
+                  member={member}
+                  size="sm"
+                  onClick={() => setSelectedProfile(member)}
+                />
               ))}
             </div>
           </div>

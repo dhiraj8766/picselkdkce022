@@ -65,6 +65,7 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
+            <MobileBottomNav />
           </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>

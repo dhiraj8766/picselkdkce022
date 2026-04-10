@@ -15,6 +15,48 @@ interface TeamMember {
   socials?: { linkedin?: string; instagram?: string; twitter?: string };
 }
 
+const HexCard = ({
+  member,
+  size = "md",
+  onClick,
+}: {
+  member: TeamMember;
+  size?: "lg" | "md";
+  onClick: () => void;
+}) => {
+  const sizes = {
+    lg: "w-[140px] h-[160px] sm:w-[190px] sm:h-[220px] md:w-[220px] md:h-[250px]",
+    md: "w-[95px] h-[110px] sm:w-[130px] sm:h-[150px] md:w-[160px] md:h-[185px]",
+  };
+
+  return (
+    <div onClick={onClick} className="group cursor-pointer flex flex-col items-center">
+      <div
+        className={`relative ${sizes[size]} overflow-hidden transition-transform duration-500 group-hover:scale-105`}
+        style={{
+          clipPath:
+            "polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)",
+        }}
+      >
+        {member.imageUrl ? (
+          <img src={member.imageUrl} alt={member.name} className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full bg-muted flex items-center justify-center text-xl text-primary font-heading">
+            {member.name.charAt(0)}
+          </div>
+        )}
+      </div>
+
+      <h3 className="mt-2 text-xs sm:text-sm font-bold text-foreground text-center font-heading">
+        {member.name}
+      </h3>
+      <p className="text-[10px] sm:text-xs text-primary text-center">
+        {member.role}
+      </p>
+    </div>
+  );
+};
+
 const TeamHighlights = () => {
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<TeamMember | null>(null);
@@ -31,114 +73,109 @@ const TeamHighlights = () => {
         console.error("Failed to fetch team:", err);
       }
     };
+
     fetchTeam();
   }, []);
 
-  const president = team.filter((m) => m.tokenNo === 1);
+  const president = team.find((m) => m.tokenNo === 1);
   const coreTeam = team.filter((m) => m.tokenNo === 2).slice(0, 4);
 
-  if (president.length === 0 && coreTeam.length === 0) return null;
-
-  // Layout: 2 core left | president center (bigger) | 2 core right
-  const leftCore = coreTeam.slice(0, 2);
-  const rightCore = coreTeam.slice(2, 4);
-  const pres = president[0];
+  if (!president && coreTeam.length === 0) return null;
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-24">
-      <div className="mb-12 text-center px-4">
-        <span className="mb-3 inline-block text-[10px] sm:text-xs font-semibold uppercase tracking-[3px] text-primary font-heading">
+    <section className="relative pt-14 pb-4 sm:pt-20 sm:pb-6 px-4">
+
+      {/* Heading */}
+      <div className="mb-8 text-center">
+        <span className="mb-2 inline-block text-[10px] sm:text-xs font-semibold uppercase tracking-[3px] text-primary font-heading">
           Leadership
         </span>
+
         <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
           Meet the Team
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
+
+        <p className="mt-2 text-sm text-muted-foreground">
           The visionaries driving PICSEL forward
         </p>
       </div>
 
-      {/* Hexagonal Layout */}
-      <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 px-2 sm:px-4 flex-wrap">
-        {/* Left core members */}
-        {leftCore.map((member) => (
-          <div
-            key={member.id}
-            onClick={() => setSelectedProfile(member)}
-            className="group cursor-pointer flex flex-col items-center"
-          >
-            <div className="relative w-[80px] h-[92px] sm:w-[120px] sm:h-[138px] md:w-[160px] md:h-[184px] overflow-hidden transition-transform duration-500 group-hover:scale-105"
-              style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-              {member.imageUrl ? (
-                <img src={member.imageUrl} alt={member.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center text-2xl text-primary font-heading">
-                  {member.name.charAt(0)}
-                </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <h3 className="mt-2 text-xs sm:text-sm font-bold text-foreground font-heading text-center">{member.name}</h3>
-            <p className="text-[10px] sm:text-xs text-primary">{member.role}</p>
-          </div>
-        ))}
+      {/* MOBILE */}
+      <div className="md:hidden flex flex-col items-center gap-4">
 
-        {/* President - bigger */}
-        {pres && (
-          <div
-            onClick={() => setSelectedProfile(pres)}
-            className="group cursor-pointer flex flex-col items-center"
-          >
-            <div className="relative w-[140px] h-[161px] sm:w-[180px] sm:h-[207px] md:w-[220px] md:h-[253px] overflow-hidden transition-transform duration-500 group-hover:scale-105 ring-2 ring-primary/30 ring-offset-2 ring-offset-background"
-              style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-              {pres.imageUrl ? (
-                <img src={pres.imageUrl} alt={pres.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center text-3xl text-primary font-heading">
-                  {pres.name.charAt(0)}
-                </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <h3 className="mt-2 text-sm sm:text-base font-bold text-foreground font-heading text-center">{pres.name}</h3>
-            <p className="text-xs text-primary font-semibold">{pres.role}</p>
-          </div>
+        {president && (
+          <HexCard
+            member={president}
+            size="lg"
+            onClick={() => setSelectedProfile(president)}
+          />
         )}
 
-        {/* Right core members */}
-        {rightCore.map((member) => (
-          <div
+        <div className="flex justify-center gap-5">
+          {coreTeam.slice(0, 2).map((m) => (
+            <HexCard
+              key={m.id}
+              member={m}
+              size="md"
+              onClick={() => setSelectedProfile(m)}
+            />
+          ))}
+        </div>
+
+        <div className="flex justify-center gap-5 -mt-3">
+          {coreTeam.slice(2, 4).map((m) => (
+            <HexCard
+              key={m.id}
+              member={m}
+              size="md"
+              onClick={() => setSelectedProfile(m)}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* DESKTOP */}
+      <div className="hidden md:flex items-center justify-center gap-6 flex-wrap">
+
+        {coreTeam.slice(0, 2).map((member) => (
+          <HexCard
             key={member.id}
+            member={member}
+            size="md"
             onClick={() => setSelectedProfile(member)}
-            className="group cursor-pointer flex flex-col items-center"
-          >
-            <div className="relative w-[100px] h-[115px] sm:w-[140px] sm:h-[161px] md:w-[160px] md:h-[184px] overflow-hidden transition-transform duration-500 group-hover:scale-105"
-              style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}>
-              {member.imageUrl ? (
-                <img src={member.imageUrl} alt={member.name} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center text-2xl text-primary font-heading">
-                  {member.name.charAt(0)}
-                </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <h3 className="mt-2 text-xs sm:text-sm font-bold text-foreground font-heading text-center">{member.name}</h3>
-            <p className="text-[10px] sm:text-xs text-primary">{member.role}</p>
-          </div>
+          />
+        ))}
+
+        {president && (
+          <HexCard
+            member={president}
+            size="lg"
+            onClick={() => setSelectedProfile(president)}
+          />
+        )}
+
+        {coreTeam.slice(2, 4).map((member) => (
+          <HexCard
+            key={member.id}
+            member={member}
+            size="md"
+            onClick={() => setSelectedProfile(member)}
+          />
         ))}
       </div>
 
-      <div className="mt-12 text-center px-4">
+      {/* Button */}
+      <div className="mt-3 text-center">
         <Link
           to="/team"
-          className="inline-flex items-center gap-3 rounded-full border border-border/60 bg-card/60 px-6 py-3 text-sm font-semibold text-foreground hover:border-primary/40 hover:bg-primary/5 transition"
+          className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-5 py-2.5 text-sm font-semibold text-foreground hover:border-primary/40 hover:bg-primary/5 transition"
         >
           View Full Team
           <ArrowRight size={16} />
         </Link>
       </div>
 
+      {/* Modal */}
       <ProfileModal
         profile={
           selectedProfile
