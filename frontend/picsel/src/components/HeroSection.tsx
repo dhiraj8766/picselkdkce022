@@ -7,7 +7,6 @@ import hero2 from "@/assets/heroimg/hero2.jpg";
 import hero4 from "@/assets/heroimg/hero3.jpeg";
 import hero5 from "@/assets/heroimg/hero4.jpeg";
 import hero3 from "@/assets/heroimg/hero5.jpeg";
-import hero6 from "@/assets/heroimg/hero6.png";
 import { API } from "@/config/api";
 import Typewriter from "@/components/ui/typewriter";
 
@@ -18,7 +17,6 @@ const heroImages = [
   { src: hero4, label: "Team" },
   { src: hero3, label: "CSE" },
   { src: hero5, label: "CSE" },
-  { src: hero6, label: "CSE" },
   
   
 ];
