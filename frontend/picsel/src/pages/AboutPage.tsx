@@ -11,11 +11,51 @@ const stats = [
   { value: "3", label: "Years", icon: Award },
 ];
 
+/* Previous timeline
 const timeline = [
   { year: "2023", title: "Club Founded", description: "PICSEL Club was established under the Department of Computer Science & Engineering at KDKCE." },
   { year: "2024", title: "First Hackathon", description: "Successfully organized our first inter-college hackathon with 200+ participants." },
   { year: "2025", title: "National Recognition", description: "Recognized as one of the top student-led tech clubs in Maharashtra." },
   { year: "2026", title: "Expanding Horizons", description: "Launching new verticals in AI/ML, Cloud Computing, and Competitive Programming." },
+];
+*/
+const timeline = [
+  {
+    year: "Institution",
+    title: "KDKCE Foundation of Excellence",
+    description:
+      "KDK College of Engineering, Nagpur is one of the premier institutions of science and technology in India, known for high-quality knowledge delivery and cutting-edge research.",
+  },
+  {
+    year: "2006",
+    title: "FACE-IT Established",
+    description:
+      "The student forum FACE-IT was founded under the CSE department with a strong non-profit vision guided by eminent professors and dedicated students.",
+  },
+  {
+    year: "Legacy",
+    title: "FAHRENHEIT and Pre-Techfest Growth",
+    description:
+      "Alongside FAHRENHEIT, the forum expanded through pre-Techfest initiatives. The key objective was to provide a national platform for students to showcase technical talent.",
+  },
+  {
+    year: "Aug 2023",
+    title: "FACE-IT Renamed to PICSEL",
+    description:
+      "FACE-IT was renamed as PICSEL with dual aims: spreading science and technology ideas among budding engineers and fostering all-round social and technical development.",
+  },
+  {
+    year: "Today",
+    title: "A Dynamic CSE-Driven Community",
+    description:
+      "PICSEL continues to empower students in computer science and engineering through events, workshops, symposiums, competitions, and real-world problem solving at the intersection of technology and innovation.",
+  },
+  {
+    year: "Future",
+    title: "Bigger Impact, Stronger Legacy",
+    description:
+      "With the long-standing FAHRENHEIT legacy in the Vidarbha region, PICSEL remains committed to delivering the latest in science and technology while keeping social and technical welfare at its core.",
+  },
 ];
 
 const values = [
@@ -23,6 +63,15 @@ const values = [
   { title: "Collaboration", description: "We believe great things happen when diverse minds work together.", color: "text-accent-cyan" },
   { title: "Learning", description: "Continuous growth through hands-on projects, workshops, and peer mentoring.", color: "text-accent-yellow" },
   { title: "Leadership", description: "Empowering students to lead initiatives and create lasting impact.", color: "text-accent-green" },
+];
+
+const aboutLegacyNarrative = [
+  "KDK College of Engineering, Nagpur is one of the premier institutions of science and technology in India. It is known for high-quality knowledge imparted to students and for its cutting-edge research culture.",
+  "The student forum FACE-IT was established in 2006. From August 2023, it was renamed as PICSEL with dual aims: to provide budding engineers and innovators a platform for sharing and spreading ideas in science and technology, and to nurture socially responsible technical leadership. PICSEL is a non-profit initiative of eminent professors and an active group of students from the CSE department of KDKCE.",
+  "Apart from technological growth, PICSEL has always envisioned the social development of students. With this mission, multiple initiatives are taken every year for all-round student development. Since its beginning, PICSEL has consistently focused on organizing bigger and better events that leave a lasting impact on young minds.",
+  "The Computer Science and Engineering (CSE) branch is a dynamic field at the intersection of technology and innovation. It focuses on the design, development, and application of computer systems, software, and algorithms. CSE students are trained to solve complex problems, build cutting-edge technology, and drive advancement across industries.",
+  "For the past several years, alongside FAHRENHEIT, FACE-IT and now PICSEL have organized pre-Techfest events that broaden the dimension of the overall technical culmination. The primary objective of FAHRENHEIT is to provide a national platform for students to showcase their talent.",
+  "Our annual techfest, FAHRENHEIT, has earned the tag of one of the most popular and awaited technology festivals in the Vidarbha region through quality execution and participant-first hospitality. It is known for its unique blend of events, exhibitions, lecture series, technical symposiums, and competitions. Carrying this legacy forward since 2006, PICSEL remains committed to delivering the best and latest in science and technology with social and technical welfare at its core.",
 ];
 
 const AboutPage = () => {
@@ -44,10 +93,25 @@ const AboutPage = () => {
               We are <span className="text-primary">PICSEL</span>
             </h1>
             <p className="mx-auto mt-4 sm:mt-6 max-w-2xl text-sm sm:text-lg leading-relaxed text-muted-foreground">
-              PICSEL (Programming, Innovation, Coding, Skills, Engineering & Leadership) is the flagship technical club of 
+              PICSEL (Panel in Computer Science and Engineering Learners) is the flagship community of 
               the Department of Computer Science & Engineering at K.D.K. College of Engineering, Nagpur. 
               We are a community of passionate learners, builders, and innovators.
             </p>
+          </div>
+        </ScrollReveal>
+
+        {/* Legacy Narrative */}
+        <ScrollReveal delay={80}>
+          <div className="mx-auto mb-12 max-w-4xl rounded-2xl border border-border bg-card/70 p-5 sm:mb-16 sm:p-8">
+            <span className="mb-3 inline-block text-[10px] font-semibold uppercase tracking-[3px] text-primary sm:text-xs font-heading">
+              Our Legacy
+            </span>
+            <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">From FACE-IT to PICSEL</h2>
+            <div className="mt-4 space-y-4 text-xs leading-relaxed text-muted-foreground sm:mt-5 sm:text-sm">
+              {aboutLegacyNarrative.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
 
@@ -109,16 +173,16 @@ const AboutPage = () => {
 
         {/* Timeline */}
         <ScrollReveal>
-          <div className="mx-auto max-w-3xl mb-12 sm:mb-16">
+          <div className="mx-auto max-w-4xl mb-12 sm:mb-16">
             <h2 className="mb-6 sm:mb-8 text-center font-heading text-2xl sm:text-3xl font-bold text-foreground">Our Journey</h2>
             <div className="relative border-l-2 border-border ml-3 sm:ml-4">
               {timeline.map((item, index) => (
                 <ScrollReveal key={index} direction="left" delay={index * 120}>
                   <div className="relative pl-6 sm:pl-8 pb-6 sm:pb-8">
                     <div className="absolute -left-[7px] top-1 h-3 w-3 rounded-full border-2 border-primary bg-background" />
-                    <span className="font-mono text-[10px] sm:text-xs font-bold text-primary">{item.year}</span>
+                    <span className="font-mono text-[10px] uppercase tracking-wider sm:text-xs font-bold text-primary">{item.year}</span>
                     <h3 className="mt-1 text-base sm:text-lg font-bold text-foreground font-heading">{item.title}</h3>
-                    <p className="mt-1 text-xs sm:text-sm text-muted-foreground">{item.description}</p>
+                    <p className="mt-1 text-xs leading-relaxed sm:text-sm text-muted-foreground">{item.description}</p>
                   </div>
                 </ScrollReveal>
               ))}

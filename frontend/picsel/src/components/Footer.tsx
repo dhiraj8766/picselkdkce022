@@ -4,7 +4,7 @@ import picselLogo from "@/assets/picsel-logo.png";
 
 const Footer = () => {
   return (
-    <footer className="relative border-t border-border bg-card/30 px-4 pt-8 pb-20 sm:px-6 sm:pt-12 sm:pb-16 md:px-10 md:pt-16 md:pb-14 lg:px-16">
+    <footer className="relative mt-16 border-t border-border bg-card/30 px-4 pt-8 pb-20 sm:mt-20 sm:px-6 sm:pt-12 sm:pb-16 md:px-10 md:pt-16 md:pb-14 lg:px-16">
 
       <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none" />
 

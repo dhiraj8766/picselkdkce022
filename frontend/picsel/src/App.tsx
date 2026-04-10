@@ -45,27 +45,31 @@ const App = () => {
           <Sonner />
           {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
           <BrowserRouter>
-            <SmoothScroll />
-            <ScrollToTop />
-            <Navbar />
-            <MobileBottomNav />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/events" element={<EventsPage />} />
-              <Route path="/event-detail" element={<EventDetailPage />} />
-              <Route path="/xevents" element={<PastEventsPage />} />
-              <Route path="/team" element={<TeamPage />} />
-              <Route path="/faculty" element={<FacultyPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/gallery" element={<GalleryPage />} />
-              <Route path="/admin" element={<AdminLogin />} />
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer />
-            <MobileBottomNav />
+            <div className="flex min-h-screen flex-col">
+              <SmoothScroll />
+              <ScrollToTop />
+              <Navbar />
+              {/* <MobileBottomNav /> */}
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/events" element={<EventsPage />} />
+                  <Route path="/event-detail" element={<EventDetailPage />} />
+                  <Route path="/xevents" element={<PastEventsPage />} />
+                  <Route path="/team" element={<TeamPage />} />
+                  <Route path="/faculty" element={<FacultyPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/gallery" element={<GalleryPage />} />
+                  <Route path="/admin" element={<AdminLogin />} />
+                  <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+              <MobileBottomNav />
+            </div>
           </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>

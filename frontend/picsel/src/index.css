@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Ropa+Sans&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Font files are loaded in src/main.tsx via @fontsource. */
 
 @tailwind base;
 @tailwind components;
@@ -48,9 +48,16 @@
     --surface-elevated: 218 28% 14%;
     --hero-muted: 188 16% 72%;
 
+    /* Previous stack
     --font-heading: 'Syne', sans-serif;
     --font-sans: 'Space Grotesk', sans-serif;
     --font-button: 'Ropa Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    */
+    --font-heading: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-sans: var(--font-body);
+    --font-button: var(--font-body);
     --font-mono: 'JetBrains Mono', monospace;
 
     --shadow-glow: 0 0 60px -10px hsl(175 74% 46% / 0.32);
@@ -110,10 +117,25 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans);
+    @apply font-body;
+    /* font-family: var(--font-sans); */
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-heading tracking-tight;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    @apply font-mono;
   }
 
   html {
@@ -571,4 +593,9 @@ html.lenis body {
   animation: marquee 25s linear infinite;
   display: flex;
   align-items: center; /* 🔥 FIXES vertical issues */
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1 }
+  25%, 75% { opacity: 0 }
 }
