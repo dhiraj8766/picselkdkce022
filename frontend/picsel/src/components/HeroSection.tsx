@@ -41,20 +41,38 @@ const HeroSection = () => {
 
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch(API.EVENTS_NEAREST);
-        if (res.ok) {
-          const data = await res.json();
-          const now = new Date();
-          now.setHours(0, 0, 0, 0);
-          const upcoming = data.filter((e: EventData) => new Date(e.date) >= now);
-          setEvents(upcoming.slice(0, 5));
-        }
-      } catch (err) { console.error("Failed to fetch events:", err); }
-    };
-    fetchEvents();
-  }, []);
+  const fetchEvents = async () => {
+    try {
+      const res = await fetch(API.EVENTS);   // fetch all events
+
+      if (!res.ok) throw new Error("Failed to fetch events");
+
+      const data = await res.json();
+
+      const now = new Date();
+      now.setHours(0,0,0,0);
+
+      // keep only active + upcoming events
+      const upcoming = data
+        .filter((e: EventData) => {
+          const eventDate = new Date(e.date);
+          eventDate.setHours(0,0,0,0);
+          return eventDate >= now;
+        })
+        .sort((a: EventData, b: EventData) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+
+      // show only first 5 nearest events
+      setEvents(upcoming.slice(0,5));
+
+    } catch (err) {
+      console.error("Failed to fetch events:", err);
+    }
+  };
+
+  fetchEvents();
+}, []);
 
   const nextImage = useCallback(() => {
     setIsTransitioning(true);

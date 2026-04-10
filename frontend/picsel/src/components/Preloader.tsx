@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 const greetings = [
-  "Hello", "नमस्ते", "Hola", "Bonjour", "こんにちは",
+  "Hello", "Hallo", "Hola", "Sawubona", "こんにちは",
   "안녕하세요", "مرحبا", "Ciao", "Olá", "Привет",
-  "你好", "Hallo", "Merhaba", "Sawubona",
+  "你好", "Bonjour", "Merhaba", "नमस्ते",
 ];
 
 const Preloader = ({ onComplete }: { onComplete: () => void }) => {
