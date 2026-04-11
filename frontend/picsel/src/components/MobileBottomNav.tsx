@@ -14,6 +14,7 @@ const mainTabs = [
 const moreLinks = [
   { name: "About Us", path: "/about", icon: Info },
   { name: "Faculty", path: "/faculty", icon: GraduationCap },
+  {name: "Gallery", path: "/gallery", icon: Info},
   { name: "Past Events", path: "/xevents", icon: Trophy },
   { name: "Contact", path: "/contact", icon: Phone },
 ];
