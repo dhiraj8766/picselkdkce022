@@ -11,6 +11,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
+import LaunchOverlay from "@/components/LaunchOverlay";
 import Index from "./pages/Index";
 import EventsPage from "./pages/EventsPage";
 import EventDetailPage from "./pages/EventDetailPage";
@@ -31,10 +32,15 @@ const App = () => {
   const [showPreloader, setShowPreloader] = useState(() => {
     return !sessionStorage.getItem("preloader_shown");
   });
+  const [showLaunchOverlay, setShowLaunchOverlay] = useState(true);
 
   const handlePreloaderComplete = useCallback(() => {
     setShowPreloader(false);
     sessionStorage.setItem("preloader_shown", "true");
+  }, []);
+
+  const handleLaunchOverlayComplete = useCallback(() => {
+    setShowLaunchOverlay(false);
   }, []);
 
   return (
@@ -43,6 +49,9 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          {showLaunchOverlay && (
+            <LaunchOverlay onComplete={handleLaunchOverlayComplete} />
+          )}
           {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
           <BrowserRouter>
             <div className="flex min-h-screen flex-col">
