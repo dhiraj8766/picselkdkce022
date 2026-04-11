@@ -204,7 +204,7 @@ const TeamPage = () => {
         {members.length > 0 && (
           <div className="max-w-6xl mx-auto">
             <h3 className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-6 font-heading">
-              Members
+              Core Committee
             </h3>
 
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
